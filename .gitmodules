@@ -1,0 +1,3 @@
+[submodule "ニュース短編動画プラットフォーム"]
+	path = ニュース短編動画プラットフォーム
+	url = git@github.com:yut0takagi/news-short-video-platform.git
