@@ -1,4 +1,4 @@
-# Business Pl
+# Business Plan
 
 ---
 
