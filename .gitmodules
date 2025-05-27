@@ -4,6 +4,3 @@
 [submodule "プログラミング学習"]
 	path = プログラミング学習
 	url = git@github.com:yut0takagi/programming-learning.git
-[submodule "サイクルツーリズム活性化プラットフォーム"]
-	path = サイクルツーリズム活性化プラットフォーム
-	url = git@github.com:yut0takagi/cycle-tourism-platform.git
