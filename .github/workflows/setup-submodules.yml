@@ -1,0 +1,38 @@
+name: Auto Submodule Setup
+
+on:
+  push:
+    paths:
+      - '**/project.json'
+      - 'setup_submodules.sh'
+
+jobs:
+  run-setup-submodules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repo
+        uses: actions/checkout@v3
+        with:
+          submodules: false
+
+      - name: Set up GitHub CLI
+        uses: cli/gh-action@v2
+        with:
+          ssh-key: ${{ secrets.GH_SSH_KEY }}  # ← SSH鍵を登録しておく必要あり
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq git-flow
+
+      - name: Run setup_submodules.sh
+        run: |
+          bash ./setup_submodules.sh
+
+      - name: Push updated submodules (if any)
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "chore: auto-update submodules"
+          git push

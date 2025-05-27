@@ -48,12 +48,20 @@ while IFS= read -r -d '' JSON; do
 
   cd "$ROOT"
 
-  # --- 5) 親リポジトリにサブモジュール登録 -------------------------------
-  if git submodule status | grep -q "${DIR}$"; then
-    echo "✔️  既にサブモジュール登録済み"
-  else
-    echo "➕ サブモジュール追加"
-    git submodule add "${REMOTE_SSH}" "${DIR}"
-    git commit -m "Add ${REPO_NAME} as submodule"
-  fi
+  @@
+   # --- 5) 親リポジトリにサブモジュール登録 -------------------------------
+   if git submodule status | grep -q "${DIR}$"; then
+     echo "✔️  既にサブモジュール登録済み"
+
+   else
+  +  # もし普通のディレクトリとしてトラッキングされていたら index から外す
+  +  if git ls-files --error-unmatch "${DIR}" >/dev/null 2>&1; then
+  +    echo "ℹ️  '${DIR}' は既存トラック → untrack して置き換え"
+  +    git rm -r --cached "${DIR}"
+  +  fi
+  +
+     echo "➕ サブモジュール追加"
+     git submodule add "${REMOTE_SSH}" "${DIR}"
+     git commit -m "Add ${REPO_NAME} as submodule"
+   fi
 done
