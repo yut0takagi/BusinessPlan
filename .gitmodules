@@ -1,3 +1,6 @@
 [submodule "ニュース短編動画プラットフォーム"]
 	path = ニュース短編動画プラットフォーム
 	url = git@github.com:yut0takagi/news-short-video-platform.git
+[submodule "プログラミング学習"]
+	path = プログラミング学習
+	url = git@github.com:yut0takagi/programming-learning.git
